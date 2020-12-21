@@ -1,0 +1,35 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5.1)
+
+PROJECT(pcs)
+
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src/messageSynchronize SYNC_SRC)
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/utils
+                    ${PROJECT_SOURCE_DIR}/include/epoll 
+                    ${PROJECT_SOURCE_DIR}/include/time_manage
+                    ${PROJECT_SOURCE_DIR}/include/transport
+                    ${PROJECT_SOURCE_DIR}/include/nodeDiscoveryProtocol
+                    ${PROJECT_SOURCE_DIR}/include/publish
+                    ${PROJECT_SOURCE_DIR}/include/subscribe
+                    ${PROJECT_SOURCE_DIR}/include/pcsProcess
+		    ${PROJECT_SOURCE_DIR}/include/messageSynchronize)
+
+ADD_LIBRARY(sync SHARED ${SYNC_SRC})
+
+SET_TARGET_PROPERTIES(sync PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+SET_TARGET_PROPERTIES(sync PROPERTIES VERSION 1.0 SOVERSION 1)
+
+INSTALL(TARGETS sync LIBRARY DESTINATION ${LIBRARY_OUTPUT_PATH})
+
+ADD_LIBRARY(sync_static STATIC ${SYNC_SRC})
+
+
+SET_TARGET_PROPERTIES(sync_static PROPERTIES OUTPUT_NAME "sync")
+
+SET_TARGET_PROPERTIES(sync_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+INSTALL(TARGET sync_static ARCHIVE DESTINATION ${LIBRARY_OUTPUT_PATH})
+
