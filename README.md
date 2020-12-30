@@ -14,5 +14,31 @@ ROS1最大的一个特征之一是在系统开始工作之前要使用roscore命
 在分布式应用或者多进程间通信过程中，消息同步是一件很重要的事情，本系统采用了两种消息同步的策略。分别是最近时间戳(Approximate TimeStamp Synchronization)同步方法和插值同步(Interpolation Synchronization)方法。其原理可在后续详解。
 #### d. 可自动生成自定义消息格式的头文件
 仿造ROS的自定义消息，在PCS系统中也实现了一个自动生成自定义消息.h文件的工具，通过在.message文件中以类C语言结构体风格定义一个自定义消息，可通过工具auto_message_generate生成一个.h文件，要想使用自定义消息时，包含这个头文件即可，非常方便。
+#### e. 使用方法简单
+由于采用了pubish/subscribe的方式，数据之间实现了完全的解耦合，节点与节点之间相互独立，因此在进程间进行通信的时候，每个节点都无需关心对方是否存在，是否接收到数据等等问题，不需要额外编写复杂的应答机制，无需关心底层通信的实现方法。此外要完成基本的通信功能，只需要调用publish、subscribe两个函数即可，极其方便快捷。
+
+#### f. 订阅的回调机制
+
+## 二、使用方法
+### 1. 运行所需环境
+此pcs库运行运行所需的操作系统为linux，要求安装cmake3.5.1或者其更高版本。
+cmake的安装方式如下：
+``` shell
+运行 cmake --version 查看当前环境下是否已经安装了cmake
+若没有安装，可执行以下语句进行安装：
+apt-get install cmake
+```
+### 2. pcs库的使用
+从github上拉取代码：
+``` shell
+git clone https://github.com/softdream/ProcessesCommunicationSystem.git
+```
+在build文件夹下依次执行：
+``` shell
+cmake ..
+make 
+make install
+```
+### 3. pcs库的基本接口
 
 待续。。。。。
