@@ -38,6 +38,10 @@ public:
 	template<typename T>
 	T& getData();
 
+	void addEvents( Event &event );
+
+	void sleep_for( int millseconds );
+
 	friend UdpType getUdpType( PCS &p );
 	friend void sendTopicInfo(PCS &p, TopicInfo &topicInfo);
 	friend int getNodeDiscoveryUdpPort( PCS &p );

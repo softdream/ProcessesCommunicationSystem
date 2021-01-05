@@ -190,7 +190,7 @@ void PCS::sendHeartBeats( int fd )
 	if( ret > 0 )
 		std::cout<<"Send heartbeat to the server ..."<<ret<<std::endl;
 	else {
-		std::cout<<"the tcp servere is offline, and disconecet ..."<<ret<<std::endl;
+		std::cout<<"the tcp server is offline, and disconecet ..."<<ret<<std::endl;
 		auto connectItem = isConnected.find(fd);
 		connectItem->second = false;
 	}
@@ -251,7 +251,14 @@ int getNodeDiscoveryUdpPort( PCS &p )
 	return p.nodeDiscovery.getPort();
 }
 
+void PCS::addEvents( Event &event )
+{
+	eventBase.addEvent( event );
+}
 
-
+void PCS::sleep_for( int millseconds )
+{
+	std::this_thread::sleep_for( std::chrono::milliseconds( millseconds ) );
+}
 
 }
