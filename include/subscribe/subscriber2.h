@@ -14,6 +14,31 @@ public:
 	~Subscribe(){
 		delete[] recvBuff;
 	}
+	
+	Subscribe( const Subscribe &obj ) = delete ;
+        Subscribe& operator=( const Subscribe &other ) = delete;
+
+	Subscribe( const Subscribe &&obj ) noexcept  ;
+	Subscribe& operator=( const Subscribe &&other )
+	{
+		if( this == &other )
+			return *this;
+	
+		client_fd = other.client_fd;
+		transport = other.transport;
+		timer = other.timer;
+		recvEvent = other.recvEvent;
+		timerEvent = other.timerEvent;
+		topicName_ = other.topicName_;
+		TI = other.TI;
+		isConnected = other.isConnected;
+		sendBuff = other.sendBuff;
+		messageLength = other.messageLength;
+		recvBuff = other.recvBuff;
+		callback = other.callback;
+	
+		return *this;
+	}	
 
 	void *recvCallback( int fd, void *arg );
 	void *timerCallback( int fd, void *arg );
@@ -46,6 +71,38 @@ private:
 
 	CbFunction callback;
 };
+
+/*template<typename T>
+Subscribe<T>::Subscribe( const Subscribe &obj ):client_fd( obj.client_fd ),
+                                                transport( obj.transport ),
+                                                timer( obj.timer ),
+                                                recvEvent( obj.recvEvent ),
+                                                timerEvent( obj.timerEvent ),
+                                                TI( obj.TI )
+
+{
+        memcpy( topicName_, obj.topicName_, sizeof( topicName_ ) );
+        memcpy( recvBuff, obj.recvBuff, sizeof( recvBuff ) );
+}*/
+
+template<typename T>
+Subscribe<T>::Subscribe( const Subscribe &&obj ) noexcept
+						: client_fd( obj.client_fd ),
+                                                transport( obj.transport ),
+                                                timer( obj.timer ),
+                                                recvEvent( obj.recvEvent ),
+                                                timerEvent( obj.timerEvent ),
+						topicName_( obj.topicName_ ),
+                                                TI( obj.TI ),
+						isConnected( obj.isConnected ),
+						sendBuff( obj.sendBuff ),
+						messageLength( obj.messageLength ),
+						recvBuff( obj.recvBuff ),
+						callback( obj.callback )
+{
+
+}
+
 
 template<typename T>
 Subscribe<T>::Subscribe() : client_fd( 0 ),
