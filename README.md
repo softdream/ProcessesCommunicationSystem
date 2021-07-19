@@ -37,7 +37,6 @@ git clone https://github.com/softdream/ProcessesCommunicationSystem.git
 ``` shell
 cmake ..
 make 
-make install
 ```
 ### 3. pcs库的基本接口
 3.1 pcs节点初始化<br>
