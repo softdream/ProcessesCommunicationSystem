@@ -49,7 +49,7 @@ pcs::PCS n;
 ```
 3.2 订阅接口<br>
 ``` cpp
-n.subscribe<data type>( "topic name", callback function );
+n.subscribe<Data Type>( "topic name", callback function );
 ```
 3.3 发布接口<br>
 ``` cpp
@@ -57,7 +57,7 @@ pcs::Publisher pub =  n.advertise ("topic name");
 ...
 while(1){
   ...
-  pub.publish( data );
+  pub.publishMessage<Data Type>( Data, Send Buff );
   ...
 }
 ```
