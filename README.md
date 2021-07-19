@@ -40,11 +40,21 @@ make
 ```
 ### 3. pcs库的基本接口
 3.1 pcs节点初始化<br>
-pcs节点的初始化只需要使用一个函数方法即可：<br>
+pcs节点的初始化只需要实例化一个PCS实例即可：<br>
 ``` cpp
-
+pcs::PCS n; 
 ```
 3.2 订阅接口<br>
+``` cpp
+n.subscribe<data type>( "topic name", callback function );
+```
 3.3 发布接口<br>
-
-待续。。。。。
+``` cpp
+pcs::Publisher pub =  n.advertise ("topic name");
+...
+while(1){
+  ...
+  pub.publish( data );
+  ...
+}
+```
